@@ -15,29 +15,76 @@ final class ViewController: UIViewController {
     
     var contentFolder: [URL] = []
     
-    @IBOutlet var filesTableView: UITableView!
+    private let filesTableView: UITableView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UITableView())
+    
+    private lazy var addFolderBarButton: UIBarButtonItem = {
+        $0.action = #selector(addFolder)
+        $0.image = UIImage.init(systemName: "folder.fill.badge.plus")
+        $0.style = .plain
+        $0.target = self
+        $0.tintColor = UIColor.black
+        return $0
+        }(UIBarButtonItem())
+    
+    private lazy var addPhotoBarButton: UIBarButtonItem = {
+        $0.action = #selector(addPhoto)
+        $0.image = UIImage.init(systemName: "photo")
+        $0.style = .plain
+        $0.target = self
+        $0.tintColor = UIColor.black
+        return $0
+        }(UIBarButtonItem())
+    
+    private let cellID = "cellIDVC"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        filesTableView.dataSource = self
-        filesTableView.delegate = self
-        imagePicker.delegate = self
+        
+        navigationItem.rightBarButtonItems = [addPhotoBarButton, addFolderBarButton]
+        setupLayout()
         print(path)
         title = path.lastPathComponent
         contentFolder = findContentOfDirectory()
     
     }
 
+   private func setupLayout() {
+    
+    view.addSubview(filesTableView)
+    filesTableView.dataSource = self
+    filesTableView.delegate = self
+    imagePicker.delegate = self
+    filesTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+    
+    NSLayoutConstraint.activate([
+        
+        filesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        filesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+        filesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        filesTableView.topAnchor.constraint(equalTo: view.topAnchor)
+        
+    ])
+   }
+    
     private func findContentOfDirectory() -> [URL] {
         let content = try? FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: [URLResourceKey.nameKey])
+        var cleanContent: [URL] = []
         if let contentUnwrapped = content {
-            return contentUnwrapped
+            for folder in contentUnwrapped {
+                if folder.lastPathComponent != ".DS_Store" {
+                    cleanContent.append(folder)
+                }
+            }
+            return cleanContent
         } else {
-            return []
+            return cleanContent
         }
     }
     
-    @IBAction func addFolder(_ sender: UIBarButtonItem) {
+    @objc func addFolder(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Create new folder", message: nil, preferredStyle: .alert)
         alertController.addTextField { (text) in
             text.placeholder = "Folder name"
@@ -49,6 +96,7 @@ final class ViewController: UIViewController {
                 let folder = self.path.appendingPathComponent("/\(folderName ?? "NewFolder")")
                 do {
                     try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: false, attributes: [FileAttributeKey.type : "Folder"])
+                    self.contentFolder = self.findContentOfDirectory()
                     self.filesTableView.reloadData()
                 } catch {
                     print(error.localizedDescription)
@@ -61,7 +109,7 @@ final class ViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    @IBAction func addPhoto(_ sender: UIBarButtonItem) {
+    @objc func addPhoto(_ sender: UIBarButtonItem) {
         self.imagePicker.sourceType = .photoLibrary
         self.present(self.imagePicker, animated: true, completion: nil)
     }
@@ -111,16 +159,18 @@ extension ViewController:  UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID)
         
         if indexPath.section == 0 {
-            cell.textLabel?.text = contentFolder[indexPath.row].lastPathComponent
-            cell.accessoryType =  .disclosureIndicator
+            cell?.textLabel?.text = contentFolder[indexPath.row].lastPathComponent
+            cell?.imageView?.image = UIImage(systemName: "folder")
+            cell?.imageView?.tintColor = UIColor.black
+            cell?.accessoryType =  .disclosureIndicator
         } else {
-            cell.selectionStyle = .none
+            cell?.selectionStyle = .none
         }
 
-        return cell
+        return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
