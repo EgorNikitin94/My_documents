@@ -15,6 +15,8 @@ final class ViewController: UIViewController {
     
     var contentFolder: [URL] = []
     
+    var contentPhotos: [URL] = []
+    
     private let filesTableView: UITableView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
@@ -45,9 +47,9 @@ final class ViewController: UIViewController {
         
         navigationItem.rightBarButtonItems = [addPhotoBarButton, addFolderBarButton]
         setupLayout()
-        print(path)
         title = path.lastPathComponent
-        contentFolder = findContentOfDirectory()
+        contentFolder = findFoldersInDirectory()
+        contentPhotos = findPhotosInDirectory()
     
     }
 
@@ -69,18 +71,33 @@ final class ViewController: UIViewController {
     ])
    }
     
-    private func findContentOfDirectory() -> [URL] {
-        let content = try? FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: [URLResourceKey.nameKey])
-        var cleanContent: [URL] = []
-        if let contentUnwrapped = content {
-            for folder in contentUnwrapped {
-                if folder.lastPathComponent != ".DS_Store" {
-                    cleanContent.append(folder)
+    private func findFoldersInDirectory() -> [URL] {
+        let allContent = try? FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: [URLResourceKey.nameKey])
+        var folders: [URL] = []
+        if let allContentUnwrapped = allContent {
+            for folder in allContentUnwrapped {
+                if folder.lastPathComponent != ".DS_Store" && !folder.lastPathComponent.contains(".jpeg") {
+                    folders.append(folder)
                 }
             }
-            return cleanContent
+            return folders
         } else {
-            return cleanContent
+            return folders
+        }
+    }
+    
+    private func findPhotosInDirectory() -> [URL] {
+        let allContent = try? FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: [URLResourceKey.nameKey])
+        var photos: [URL] = []
+        if let allContentUnwrapped = allContent {
+            for photo in allContentUnwrapped {
+                if photo.lastPathComponent.contains(".jpeg") {
+                    photos.append(photo)
+                }
+            }
+            return photos
+        } else {
+            return photos
         }
     }
     
@@ -96,7 +113,7 @@ final class ViewController: UIViewController {
                 let folder = self.path.appendingPathComponent("/\(folderName ?? "NewFolder")")
                 do {
                     try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: false, attributes: [FileAttributeKey.type : "Folder"])
-                    self.contentFolder = self.findContentOfDirectory()
+                    self.contentFolder = self.findFoldersInDirectory()
                     self.filesTableView.reloadData()
                 } catch {
                     print(error.localizedDescription)
@@ -114,18 +131,6 @@ final class ViewController: UIViewController {
         self.present(self.imagePicker, animated: true, completion: nil)
     }
     
-    private func urlsToString() -> [String] {
-        let items = try? FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: [URLResourceKey.nameKey])
-        var itemsString: [String] = []
-        if let items = items {
-            for item in items {
-                if item.lastPathComponent != ".DS_Store" {
-                    itemsString.append(item.lastPathComponent)
-                }
-            }
-        }
-        return itemsString
-    }
 }
 
 
@@ -153,7 +158,7 @@ extension ViewController:  UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             return contentFolder.count
         } else {
-            return 0
+            return contentPhotos.count
         }
     }
     
@@ -167,6 +172,10 @@ extension ViewController:  UITableViewDataSource, UITableViewDelegate {
             cell?.imageView?.tintColor = UIColor.black
             cell?.accessoryType =  .disclosureIndicator
         } else {
+            cell?.textLabel?.text = "jpeg"
+            if let data = try? Data(contentsOf: contentPhotos[indexPath.row]) {
+                cell?.imageView?.image = UIImage(data: data)
+            }
             cell?.selectionStyle = .none
         }
 
@@ -191,8 +200,21 @@ extension ViewController:  UITableViewDataSource, UITableViewDelegate {
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        photoImageView.image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        
+        if let imageURL = info[UIImagePickerController.InfoKey.imageURL] as? URL {
+            let tmpFilename = UUID().uuidString
+            let newURL = path.appendingPathComponent("\(tmpFilename).jpeg")
+            do {
+                try FileManager.default.moveItem(at: imageURL, to: newURL)
+                contentPhotos = findPhotosInDirectory()
+                filesTableView.reloadData()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        
         picker.dismiss(animated: true, completion: nil)
+        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
