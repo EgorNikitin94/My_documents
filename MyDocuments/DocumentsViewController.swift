@@ -7,15 +7,31 @@
 
 import UIKit
 
-final class ViewController: UIViewController {
+final class DocumentsViewController: UIViewController {
     
     private let imagePicker: UIImagePickerController = UIImagePickerController()
     
     var path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     
-    var contentFolder: [URL] = []
+    var contentFolder: [URL] = [] {
+        didSet {
+            filesTableView.reloadData()
+        }
+    }
     
     var contentPhotos: [URL] = []
+    
+    var isDoNotSortAlphabetically : Bool = UserDefaults.standard.bool(forKey: Keys.doNotSortAlphabetically.rawValue) {
+        didSet {
+            contentFolder = isDoNotSortAlphabetically == false ? findFoldersInDirectory().sorted( by: {$0.lastPathComponent < $1.lastPathComponent}) : findFoldersInDirectory().sorted( by: {$0.lastPathComponent > $1.lastPathComponent})
+        }
+    }
+    
+    var isDoNotShowImagesVolume: Bool  = UserDefaults.standard.bool(forKey: Keys.doNotShowImagesVolume.rawValue) {
+        didSet {
+            filesTableView.reloadData()
+        }
+    }
     
     private let filesTableView: UITableView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -42,13 +58,21 @@ final class ViewController: UIViewController {
     
     private let cellID = "cellIDVC"
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        isDoNotSortAlphabetically = UserDefaults.standard.bool(forKey: Keys.doNotSortAlphabetically.rawValue)
+        isDoNotShowImagesVolume = UserDefaults.standard.bool(forKey: Keys.doNotShowImagesVolume.rawValue)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItems = [addPhotoBarButton, addFolderBarButton]
         setupLayout()
-        title = path.lastPathComponent
-        contentFolder = findFoldersInDirectory()
+        navigationItem.title = path.lastPathComponent
+        self.navigationController?.navigationBar.isHidden = false
+        contentFolder = isDoNotSortAlphabetically == false ? findFoldersInDirectory().sorted( by: {$0.lastPathComponent < $1.lastPathComponent}) : findFoldersInDirectory().sorted( by: {$0.lastPathComponent > $1.lastPathComponent})
         contentPhotos = findPhotosInDirectory()
     
     }
@@ -139,7 +163,7 @@ final class ViewController: UIViewController {
 
 
 
-extension ViewController:  UITableViewDataSource, UITableViewDelegate {
+extension DocumentsViewController:  UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -147,10 +171,12 @@ extension ViewController:  UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        if section == 0 {
+        if section == 0 && !contentFolder.isEmpty {
             return "Folders"
-        } else {
+        } else if section == 1 && !contentPhotos.isEmpty {
             return "Images"
+        } else {
+            return nil
         }
     }
     
@@ -174,7 +200,13 @@ extension ViewController:  UITableViewDataSource, UITableViewDelegate {
         } else {
             cell?.textLabel?.text = "jpeg"
             if let data = try? Data(contentsOf: contentPhotos[indexPath.row]) {
+                
                 cell?.imageView?.image = UIImage(data: data)
+                
+                if isDoNotShowImagesVolume == false {
+                    cell?.textLabel?.text?.append("(\(String(data.count)) bytes)")
+                }
+                
             }
             cell?.selectionStyle = .none
         }
@@ -185,7 +217,7 @@ extension ViewController:  UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             
-            let folderViewController = ViewController()
+            let folderViewController = DocumentsViewController()
             folderViewController.path = contentFolder[tableView.indexPathForSelectedRow!.row]
             navigationController?.pushViewController(folderViewController, animated: true)
             
@@ -197,7 +229,7 @@ extension ViewController:  UITableViewDataSource, UITableViewDelegate {
 
 
 
-extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension DocumentsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         

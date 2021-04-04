@@ -3,25 +3,42 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		504B85D4261385F7004124D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504B85D3261385F7004124D4 /* AppDelegate.swift */; };
 		504B85D6261385F7004124D4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504B85D5261385F7004124D4 /* SceneDelegate.swift */; };
-		504B85D8261385F7004124D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504B85D7261385F7004124D4 /* ViewController.swift */; };
+		504B85D8261385F7004124D4 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504B85D7261385F7004124D4 /* DocumentsViewController.swift */; };
 		504B85DD26138600004124D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504B85DC26138600004124D4 /* Assets.xcassets */; };
 		504B85E026138600004124D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504B85DE26138600004124D4 /* LaunchScreen.storyboard */; };
+		5062FA2B2618E32300099F56 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 5062FA2A2618E32300099F56 /* KeychainAccess */; };
+		5075C87B261666920064A7F6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075C87A261666920064A7F6 /* LoginViewController.swift */; };
+		5075C8952616787C0064A7F6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075C8942616787C0064A7F6 /* Extensions.swift */; };
+		5075C898261679A70064A7F6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075C897261679A70064A7F6 /* TabBarController.swift */; };
+		5075C89B26167A090064A7F6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075C89A26167A090064A7F6 /* SettingsViewController.swift */; };
+		509DE0A4261A39A5007FA40C /* SortingFilesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509DE0A3261A39A5007FA40C /* SortingFilesTableViewCell.swift */; };
+		509DE0A7261A3A27007FA40C /* ShowImagesVolumeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509DE0A6261A3A27007FA40C /* ShowImagesVolumeTableViewCell.swift */; };
+		509DE0AE261A59E0007FA40C /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509DE0AD261A59E0007FA40C /* UserDefaultsKeys.swift */; };
+		509DE0B1261A6992007FA40C /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509DE0B0261A6992007FA40C /* Keychain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		504B85D0261385F7004124D4 /* MyDocuments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDocuments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		504B85D3261385F7004124D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		504B85D5261385F7004124D4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		504B85D7261385F7004124D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		504B85D7261385F7004124D4 /* DocumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewController.swift; sourceTree = "<group>"; };
 		504B85DC26138600004124D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		504B85DF26138600004124D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		504B85E126138600004124D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5075C87A261666920064A7F6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5075C8942616787C0064A7F6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		5075C897261679A70064A7F6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		5075C89A26167A090064A7F6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		509DE0A3261A39A5007FA40C /* SortingFilesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFilesTableViewCell.swift; sourceTree = "<group>"; };
+		509DE0A6261A3A27007FA40C /* ShowImagesVolumeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImagesVolumeTableViewCell.swift; sourceTree = "<group>"; };
+		509DE0AD261A59E0007FA40C /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
+		509DE0B0261A6992007FA40C /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5062FA2B2618E32300099F56 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,7 +57,6 @@
 			isa = PBXGroup;
 			children = (
 				504B85D2261385F7004124D4 /* MyDocuments */,
-				504B85D1261385F7004124D4 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -49,6 +66,7 @@
 				504B85D0261385F7004124D4 /* MyDocuments.app */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		504B85D2261385F7004124D4 /* MyDocuments */ = {
@@ -56,12 +74,37 @@
 			children = (
 				504B85D3261385F7004124D4 /* AppDelegate.swift */,
 				504B85D5261385F7004124D4 /* SceneDelegate.swift */,
-				504B85D7261385F7004124D4 /* ViewController.swift */,
+				509DE0B0261A6992007FA40C /* Keychain.swift */,
+				5075C87A261666920064A7F6 /* LoginViewController.swift */,
+				5075C897261679A70064A7F6 /* TabBarController.swift */,
+				504B85D7261385F7004124D4 /* DocumentsViewController.swift */,
+				509DE0B4261A6B03007FA40C /* Settings */,
 				504B85DC26138600004124D4 /* Assets.xcassets */,
 				504B85DE26138600004124D4 /* LaunchScreen.storyboard */,
 				504B85E126138600004124D4 /* Info.plist */,
+				5075C8942616787C0064A7F6 /* Extensions.swift */,
+				504B85D1261385F7004124D4 /* Products */,
 			);
 			path = MyDocuments;
+			sourceTree = "<group>";
+		};
+		509DE0B4261A6B03007FA40C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				5075C89A26167A090064A7F6 /* SettingsViewController.swift */,
+				509DE0B5261A6B32007FA40C /* Cells */,
+				509DE0AD261A59E0007FA40C /* UserDefaultsKeys.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		509DE0B5261A6B32007FA40C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				509DE0A3261A39A5007FA40C /* SortingFilesTableViewCell.swift */,
+				509DE0A6261A3A27007FA40C /* ShowImagesVolumeTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,6 +123,9 @@
 			dependencies = (
 			);
 			name = MyDocuments;
+			packageProductDependencies = (
+				5062FA2A2618E32300099F56 /* KeychainAccess */,
+			);
 			productName = MyDocuments;
 			productReference = 504B85D0261385F7004124D4 /* MyDocuments.app */;
 			productType = "com.apple.product-type.application";
@@ -107,6 +153,9 @@
 				Base,
 			);
 			mainGroup = 504B85C7261385F7004124D4;
+			packageReferences = (
+				5062FA292618E32300099F56 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+			);
 			productRefGroup = 504B85D1261385F7004124D4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -133,9 +182,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				504B85D8261385F7004124D4 /* ViewController.swift in Sources */,
+				5075C8952616787C0064A7F6 /* Extensions.swift in Sources */,
+				5075C87B261666920064A7F6 /* LoginViewController.swift in Sources */,
+				509DE0AE261A59E0007FA40C /* UserDefaultsKeys.swift in Sources */,
+				5075C89B26167A090064A7F6 /* SettingsViewController.swift in Sources */,
+				504B85D8261385F7004124D4 /* DocumentsViewController.swift in Sources */,
+				5075C898261679A70064A7F6 /* TabBarController.swift in Sources */,
 				504B85D4261385F7004124D4 /* AppDelegate.swift in Sources */,
+				509DE0A4261A39A5007FA40C /* SortingFilesTableViewCell.swift in Sources */,
 				504B85D6261385F7004124D4 /* SceneDelegate.swift in Sources */,
+				509DE0B1261A6992007FA40C /* Keychain.swift in Sources */,
+				509DE0A7261A3A27007FA40C /* ShowImagesVolumeTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +388,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5062FA292618E32300099F56 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5062FA2A2618E32300099F56 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5062FA292618E32300099F56 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 504B85C8261385F7004124D4 /* Project object */;
 }
