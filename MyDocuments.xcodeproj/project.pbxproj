@@ -17,8 +17,7 @@
 		5075C8952616787C0064A7F6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075C8942616787C0064A7F6 /* Extensions.swift */; };
 		5075C898261679A70064A7F6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075C897261679A70064A7F6 /* TabBarController.swift */; };
 		5075C89B26167A090064A7F6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5075C89A26167A090064A7F6 /* SettingsViewController.swift */; };
-		509DE0A4261A39A5007FA40C /* SortingFilesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509DE0A3261A39A5007FA40C /* SortingFilesTableViewCell.swift */; };
-		509DE0A7261A3A27007FA40C /* ShowImagesVolumeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509DE0A6261A3A27007FA40C /* ShowImagesVolumeTableViewCell.swift */; };
+		509DE0A4261A39A5007FA40C /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509DE0A3261A39A5007FA40C /* SettingsTableViewCell.swift */; };
 		509DE0AE261A59E0007FA40C /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509DE0AD261A59E0007FA40C /* UserDefaultsKeys.swift */; };
 		509DE0B1261A6992007FA40C /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509DE0B0261A6992007FA40C /* Keychain.swift */; };
 /* End PBXBuildFile section */
@@ -35,8 +34,7 @@
 		5075C8942616787C0064A7F6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		5075C897261679A70064A7F6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		5075C89A26167A090064A7F6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		509DE0A3261A39A5007FA40C /* SortingFilesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingFilesTableViewCell.swift; sourceTree = "<group>"; };
-		509DE0A6261A3A27007FA40C /* ShowImagesVolumeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImagesVolumeTableViewCell.swift; sourceTree = "<group>"; };
+		509DE0A3261A39A5007FA40C /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		509DE0AD261A59E0007FA40C /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		509DE0B0261A6992007FA40C /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,19 +90,18 @@
 			isa = PBXGroup;
 			children = (
 				5075C89A26167A090064A7F6 /* SettingsViewController.swift */,
-				509DE0B5261A6B32007FA40C /* Cells */,
+				509DE0B5261A6B32007FA40C /* Cell */,
 				509DE0AD261A59E0007FA40C /* UserDefaultsKeys.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		509DE0B5261A6B32007FA40C /* Cells */ = {
+		509DE0B5261A6B32007FA40C /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				509DE0A3261A39A5007FA40C /* SortingFilesTableViewCell.swift */,
-				509DE0A6261A3A27007FA40C /* ShowImagesVolumeTableViewCell.swift */,
+				509DE0A3261A39A5007FA40C /* SettingsTableViewCell.swift */,
 			);
-			path = Cells;
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,10 +186,9 @@
 				504B85D8261385F7004124D4 /* DocumentsViewController.swift in Sources */,
 				5075C898261679A70064A7F6 /* TabBarController.swift in Sources */,
 				504B85D4261385F7004124D4 /* AppDelegate.swift in Sources */,
-				509DE0A4261A39A5007FA40C /* SortingFilesTableViewCell.swift in Sources */,
+				509DE0A4261A39A5007FA40C /* SettingsTableViewCell.swift in Sources */,
 				504B85D6261385F7004124D4 /* SceneDelegate.swift in Sources */,
 				509DE0B1261A6992007FA40C /* Keychain.swift in Sources */,
-				509DE0A7261A3A27007FA40C /* ShowImagesVolumeTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

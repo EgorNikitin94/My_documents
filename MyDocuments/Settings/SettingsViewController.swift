@@ -16,11 +16,7 @@ final class SettingsViewController: UIViewController {
     }(UITableView())
     
     private var reuseID: String {
-        return String(describing: SortingFilesTableViewCell.self)
-    }
-    
-    private var reuseIDTwo: String {
-        return String(describing: ShowImagesVolumeTableViewCell.self)
+        return String(describing: SettingsTableViewCell.self)
     }
     
     private let changePasswordID = "cellIDSVC"
@@ -44,8 +40,7 @@ final class SettingsViewController: UIViewController {
         settingsTableView.dataSource = self
         settingsTableView.delegate = self
         settingsTableView.register(UITableViewCell.self, forCellReuseIdentifier: changePasswordID)
-        settingsTableView.register(SortingFilesTableViewCell.self, forCellReuseIdentifier: reuseID)
-        settingsTableView.register(ShowImagesVolumeTableViewCell.self, forCellReuseIdentifier: reuseIDTwo)
+        settingsTableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: reuseID)
         
         NSLayoutConstraint.activate([
             
@@ -68,12 +63,15 @@ extension SettingsViewController:  UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let settingsCell: SettingsTableViewCell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as! SettingsTableViewCell
         if indexPath.row == 0 {
-            let cellOne: SortingFilesTableViewCell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as! SortingFilesTableViewCell
-            return cellOne
+            settingsCell.configure(labelText: "Sort alphabetically", userDefaultsKey: Keys.doNotSortAlphabetically.rawValue)
+            settingsCell.userDefaultsKey = Keys.doNotSortAlphabetically.rawValue
+            return settingsCell
         } else if indexPath.row == 1 {
-            let cellTwo: ShowImagesVolumeTableViewCell = tableView.dequeueReusableCell(withIdentifier: reuseIDTwo, for: indexPath) as! ShowImagesVolumeTableViewCell
-            return cellTwo
+            settingsCell.configure(labelText: "Show images volume", userDefaultsKey: Keys.doNotShowImagesVolume.rawValue)
+            settingsCell.userDefaultsKey = Keys.doNotShowImagesVolume.rawValue
+            return settingsCell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: changePasswordID)
             cell?.textLabel?.text = "Change password"
