@@ -93,32 +93,9 @@ final class LoginViewController: UIViewController {
     
     @objc private func checkOrChangePassword() {
         if isModalViewController {
-            changePassword()
+            createAndChangePassword(isChangeState: isModalViewController)
         } else {
             checkPassword()
-        }
-    }
-    
-    private func changePassword() {
-        if iterationEnterPassword == 0 && passwordTextField.text?.count ?? 0 == 4 {
-            passwordContainer = passwordTextField.text
-            enterPasswordButton.setTitle("Enter  password once more", for: .normal)
-            iterationEnterPassword = 1
-            passwordTextField.text = ""
-        } else if iterationEnterPassword == 1 {
-            guard passwordContainer == passwordTextField.text  else {
-                passwordContainer = nil
-                iterationEnterPassword = 0
-                passwordTextField.text = ""
-                enterPasswordButton.setTitle("Change password", for: .normal)
-                showAlertController()
-                return
-            }
-            AppKeychain.keychain["MyPassword"] = passwordTextField.text
-            iterationEnterPassword = 0
-            showAlertController(title: "Successfully!", message: "Password was changed successfully")
-        } else {
-            showAlertController(message: "password must contain 4 characters")
         }
     }
     
@@ -132,11 +109,11 @@ final class LoginViewController: UIViewController {
             }
             goToTabBarViewController()
         } else {
-            createPassword()
+            createAndChangePassword(isChangeState: isModalViewController)
         }
     }
     
-    private func createPassword() {
+    private func createAndChangePassword(isChangeState: Bool) {
         if iterationEnterPassword == 0 && passwordTextField.text?.count ?? 0 == 4 {
             passwordContainer = passwordTextField.text
             enterPasswordButton.setTitle("Enter  password once more", for: .normal)
@@ -147,13 +124,13 @@ final class LoginViewController: UIViewController {
                 passwordContainer = nil
                 iterationEnterPassword = 0
                 passwordTextField.text = ""
-                enterPasswordButton.setTitle("Crete password", for: .normal)
+                enterPasswordButton.setTitle(isChangeState ? "Change password" : "Crete password", for: .normal)
                 showAlertController()
                 return
             }
             AppKeychain.keychain["MyPassword"] = passwordTextField.text
             iterationEnterPassword = 0
-            goToTabBarViewController()
+            isChangeState ? showAlertController(title: "Successfully!", message: "Password was changed successfully") : goToTabBarViewController()
         } else {
             showAlertController(message: "password must contain 4 characters")
         }
